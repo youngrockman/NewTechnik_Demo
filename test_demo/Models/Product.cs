@@ -17,17 +17,23 @@ public partial class Product
 
     public string? Productphoto { get; set; }
 
-    public Bitmap ParseImage { get
+    public Bitmap ParseImage {
+        get
         {
-            
+            try
+            {
                 if (string.IsNullOrEmpty(Productphoto))
                 {
-                    return new Bitmap("picture.png");
+                    return new Bitmap (AppDomain.CurrentDomain.BaseDirectory + "/Images/picture.png");
                 }
 
-                return new Bitmap(Productphoto);
-            
-        } 
+                return new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "/Images/" + Productphoto);
+            }
+            catch (Exception ex) { return new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "/Images/picture.png"); }
+
+
+
+        }
     }
 
     public int Productmanufacturer { get; set; }

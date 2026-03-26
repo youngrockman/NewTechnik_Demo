@@ -37,13 +37,33 @@ public partial class AddEditProduct : Window
         using var context = new DemoContext();
         _currentUser = currentUserId;
         _product = product;
+        ImageName = _product.Productphoto ?? Guid.NewGuid().ToString("N");
         LoadManu();
         LoadSup();
         LoadCat();
         DataContext = _product;
         EditBut.IsVisible = true;
         DeleteBut.IsVisible = true;
-        ImageBox.Source = new Bitmap(_product.Productphoto);
+
+        try
+        {
+            if (!string.IsNullOrEmpty(_product.Productphoto))
+            {
+                ImageBox.Source = new Bitmap(_product.Productphoto);
+            }
+            else
+            {
+                ImageBox.Source = new Bitmap("picture.png");
+            }
+        }
+        catch (Exception ex)
+        {
+           
+        }
+
+
+
+
         var a = _product.Productmanufacturer;
         var b = _product.Productcategory;
         var c = _product.Supplierid;
@@ -126,25 +146,30 @@ public partial class AddEditProduct : Window
 
     private async void AddImage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-
-        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
+        try
         {
-            Title = "Добавить кратинку",
-            FileTypeChoices = new[]
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
             {
+                Title = "Добавить кратинку",
+                FileTypeChoices = new[]
+                {
                 FilePickerFileTypes.All
             }
-        });
+            });
 
-        if (file != null)
-        {
-            ImageBox.Source = new Bitmap(file.Path.LocalPath);
-            var targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImageName + Path.GetExtension(file.Name));
-            File.Copy(file.Path.LocalPath, targetPath);
-            ImageName = targetPath;
+            if (file != null)
+            {
+                ImageBox.Source = new Bitmap(file.Path.LocalPath);
+                var targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImageName + Path.GetExtension(file.Name));
+                File.Copy(file.Path.LocalPath, targetPath);
+                ImageName = targetPath;
+
+            }
 
         }
+        catch { }
     }
 
     private async void Delete_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -210,8 +235,5 @@ public partial class AddEditProduct : Window
             error.ShowAsync();
 
         }
-
-        var product = DataContext as Product;
-        context.SaveChanges();
     }
 }

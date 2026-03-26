@@ -148,3 +148,6 @@ C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\ru\Microsoft.Cod
 C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\IVAN\source\repos\test_demo\test_demo\obj\Debug\net8.0\test_demo.sourcelink.json
+C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\Images\D344Y7.jpg
+C:\Users\IVAN\source\repos\test_demo\test_demo\bin\Debug\net8.0\Images\picture.png
